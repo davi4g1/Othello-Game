@@ -1,4 +1,5 @@
 
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -27,11 +28,11 @@ Board::~Board() {
 	    	for(int j=0;j<8;j++){
 	   delete board[i][j];
 	    	}}
-
+/*
 	playerW.~player();
 	playerB.~player();
 	currentTurn.~player();
-
+*/
 }
 
 Board::Board(){
@@ -47,52 +48,89 @@ void Board::setP2(player &x){
 
 void Board::setBoardType(int x){
 
-
 		qBoard=new unplayablePosition;
 		qBoard->setPiece(unplayablePosition::WHITE);
 		delete board[3][3];
 		board[3][3]=qBoard;
+
 		qBoard=new unplayablePosition;
 		qBoard->setPiece(unplayablePosition::BLACK);
 		delete board [3][4];
-		delete board [4][3];
 		board[3][4]=qBoard;
+
+		qBoard=new unplayablePosition;
+		qBoard->setPiece(unplayablePosition::BLACK);
+		delete board [4][3];
 		board[4][3]=qBoard;
+
 		qBoard=new unplayablePosition;
 		qBoard->setPiece(unplayablePosition::WHITE);
 		delete board [4][4];
 		board[4][4]=qBoard;
 
+
 	if (x==2){
+
 		qBoard=new unplayablePosition;
 		qBoard->setPiece(unplayablePosition::WHITE);
 		delete board[2][3];
-		delete board[2][2];
-		delete board[3][2];
 		board[2][3]=qBoard;
+
+		qBoard=new unplayablePosition;
+		qBoard->setPiece(unplayablePosition::WHITE);
+		delete board [2][2];
 		board[2][2]=qBoard;
+
+		qBoard=new unplayablePosition;
+		qBoard->setPiece(unplayablePosition::WHITE);
+		delete board [3][2];
 		board[3][2]=qBoard;
+
 		qBoard=new unplayablePosition;
 		qBoard->setPiece(unplayablePosition::BLACK);
-		delete board[5][2];
-		delete board[5][3];
-		delete board[2][4];
-		delete board[2][5];
-		delete board[3][5];
+		delete board [4][2];
 		board[4][2]=qBoard;
-		board[5][2]=qBoard;
+
+		qBoard=new unplayablePosition;
+		qBoard->setPiece(unplayablePosition::BLACK);
+		delete board[5][3];
 		board[5][3]=qBoard;
+
+		qBoard=new unplayablePosition;
+		qBoard->setPiece(unplayablePosition::BLACK);
+		delete board [5][2];
+		board[5][2]=qBoard;
+
+		qBoard=new unplayablePosition;
+		qBoard->setPiece(unplayablePosition::BLACK);
+		delete board [2][4];
 		board[2][4]=qBoard;
+
+		qBoard=new unplayablePosition;
+		qBoard->setPiece(unplayablePosition::BLACK);
+		delete board [2][5];
 		board[2][5]=qBoard;
+
+		qBoard=new unplayablePosition;
+		qBoard->setPiece(unplayablePosition::BLACK);
+		delete board [3][5];
 		board[3][5]=qBoard;
+
 		qBoard=new unplayablePosition;
 		qBoard->setPiece(unplayablePosition::WHITE);
 		delete board[4][5];
-		delete board[5][5];
-		delete board[5][4];
 		board[4][5]=qBoard;
+
+		qBoard=new unplayablePosition;
+		qBoard->setPiece(unplayablePosition::WHITE);
+		delete board [5][5];
 		board[5][5]=qBoard;
+
+		qBoard=new unplayablePosition;
+		qBoard->setPiece(unplayablePosition::WHITE);
+		delete board [5][4];
 		board[5][4]=qBoard;
+
 	}
 }
 
@@ -351,7 +389,7 @@ void Board::play(){
 
 draw();
 		cout<<getCurrentTurn().getName()<<":\nThere are playable moves. Choose Option:"<<endl;
-				cout<<"1. Make Move Turn\n2. Save Game\n3. Concede the Game"<<endl;
+				cout<<"1. Make Move\n2. Save Game\n3. Concede the Game"<<endl;
 				cin>>option;
 				if (option==1){
 			takeTurn();
@@ -421,7 +459,7 @@ Board::Board(string save_file){
 	else{
 		cerr<<"player turn error";
 	}
-	
+
 	for(int i = 0; i <= 63; i++){
 		if (savedBoard[i]=='.'){
 			pBoard=new playablePosition;
