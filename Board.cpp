@@ -1,5 +1,4 @@
 
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -28,7 +27,11 @@ Board::~Board() {
 	    	for(int j=0;j<8;j++){
 	   delete board[i][j];
 	    	}}
-	
+/*
+	playerW.~player();
+	playerB.~player();
+	currentTurn.~player();
+*/
 }
 
 Board::Board(){
@@ -344,41 +347,12 @@ bool cond;
 void Board::play(){
 	int option;
 
-	while(!canMakeMove()){
-		cout<<getCurrentTurn().getName()<<": No playable moves. Choose Option:"<<endl;
-		cout<<"1. Forfeit Turn\n2. Save Game\n3. Concede the Game"<<endl;
-		cin>>option;
-		if (option==1){
-			if(getCurrentTurn().getName()==playerW.getName()){
-				setCurrentTurn(&playerB);
-			}
-			else {
-				setCurrentTurn(&playerW);
-			}
-		}
-		else if(option==2){
-			save();
-		}
-		else if(option==3){
-			if(getCurrentTurn().getName()==playerW.getName()){
-				draw();
-				cout<<"Black Won!"<<endl;
-				for(int i = 0; i < 8; i++){////////////////////// deallocate before exiting
-					    	for(int j=0;j<8;j++){
-					   delete board[i][j];
-					    	}}
-
-				exit(EXIT_SUCCESS);}
-			else{
-				draw();
-				cout<<"White Won!"<<endl;
-				for(int i = 0; i < 8; i++){
-					    	for(int j=0;j<8;j++){
-					   delete board[i][j];
-					    	}}
-
-				exit(EXIT_SUCCESS);
-				}
+	if(!canMakeMove()){
+		if(getCurrentTurn().getName()==playerW.getName()){
+						setCurrentTurn(&playerB);
+	}
+	else {
+						setCurrentTurn(&playerW);
 	}}
 
 	while (canMakeMove()){
@@ -419,7 +393,52 @@ draw();
 							    	}}
 						exit(EXIT_SUCCESS);
 
-	}}}
+	}}
+		while(!canMakeMove()){
+
+				draw();
+				cout<<getCurrentTurn().getName()<<": No playable moves. Choose Option:"<<endl;
+				cout<<"1. Forfeit Turn\n2. Save Game\n3. Concede the Game"<<endl;
+				cin>>option;
+				if (option==1){
+					if(getCurrentTurn().getName()==playerW.getName()){
+						setCurrentTurn(&playerB);
+					if (!canMakeMove()){
+						break;
+							}
+							}
+					else {
+						setCurrentTurn(&playerW);
+					if (!canMakeMove()){
+						break;
+								}
+					}
+				}
+					else if(option==2){
+							save();
+						}
+					else if(option==3){
+						if(getCurrentTurn().getName()==playerW.getName()){
+						draw();
+						cout<<"Black Won!"<<endl;
+				for(int i = 0; i < 8; i++){////////////////////// deallocate before exiting
+				    	for(int j=0;j<8;j++){
+				    	delete board[i][j];
+					    	}}
+
+								exit(EXIT_SUCCESS);}
+							else{
+								draw();
+								cout<<"White Won!"<<endl;
+								for(int i = 0; i < 8; i++){
+									    	for(int j=0;j<8;j++){
+									   delete board[i][j];
+									    	}}
+
+								exit(EXIT_SUCCESS);
+								}
+					}}}
+
 	draw();
 	checkBoard('W');
 	checkWin();
