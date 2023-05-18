@@ -27,11 +27,7 @@ Board::~Board() {
 	    	for(int j=0;j<8;j++){
 	   delete board[i][j];
 	    	}}
-/*
-	playerW.~player();
-	playerB.~player();
-	currentTurn.~player();
-*/
+
 }
 
 Board::Board(){
