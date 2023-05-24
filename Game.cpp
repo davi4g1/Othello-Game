@@ -41,17 +41,35 @@ void Game::start(){
 
 
 	int boardType{0};
-	while (boardType != 1 && boardType != 2){
+	string temp;
 
-		cin>>boardType;
+	while (true) {
+			cin>>temp;
+
+									        try {
+									           unsigned int x = std::stoi(temp);
+									           if (x>=3 || x<=0) {
+
+						   throw std::out_of_range("Error: option must be between 1 and 2");
+									            }
+									            break;
+									        }
+									         catch (const std::invalid_argument& e) {
+				std::cout << "Error: Invalid input. Please enter a number." << std::endl;
+							        }
+									        catch (const std::out_of_range& e) {
+									            cout << e.what() << std::endl;
+									        }
+									    }
+				      boardType=stoi(temp);
+
 
 		if (boardType < 1 || boardType > 2){
 		cerr<<"Invalid board type, try again "<<endl;}
-	else {break;}
 
-	}
 
 	a.setBoardType(boardType);
 
 	a.play();
 }
+
