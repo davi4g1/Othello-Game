@@ -11,13 +11,31 @@ int main(){
 
 	int option;
 	string a,b;
+	string temp;
 
 	cout<<"Welcome to Othello!\nChoose your option:\n1. Quit\n2. Load a Game\n3. Start a Game"<<endl;
-	cin>>option;
 
-	while(option!=1 && option !=2 && option!=3){
-		cout<<"try again";
-		cin>>option;}
+	while (true) {
+								  std::getline(std::cin, temp);
+
+
+								        try {
+								           unsigned int x = std::stoi(temp);
+								           if (x>=4 || x<=0) {
+
+					   throw std::out_of_range("Error: option must be between 1 and 3");
+								            }
+								            break;
+								        }
+								         catch (const std::invalid_argument& e) {
+						            std::cout << "Error: Invalid input. Please enter a number." << std::endl;
+						        }
+								        catch (const std::out_of_range& e) {
+								            cout << e.what() << std::endl;
+								        }
+								    }
+			      option=stoi(temp);
+
 	if(option==1){
 		cout<<"Thank you for playing! Bye!";
 		return 0;
@@ -37,7 +55,9 @@ int main(){
 	player y{b};
 
 	Game game{x,y};
+
 	game.start();
+
 	}
 
 	else{
