@@ -1,7 +1,14 @@
 /*
 Program by Davide Forgione
-Assignment for Programming Methedology II 
+Assignment for Programming Methedology II, Concordia University
 Winter 2023
+
+Learning concepts include:
+- Object Oriented Programming
+- Polymorphism
+- Dynamic Memory Managment
+- File Handling
+- Exception Handling
 
 This is a program for the two player board game Othello.
 When started, the user will be asked to either load an existing game or start a new one. 
