@@ -27,7 +27,11 @@ Board::~Board() {
 	    	for(int j=0;j<8;j++){
 	   delete board[i][j];
 	    	}}
-
+/*
+	playerW.~player();
+	playerB.~player();
+	currentTurn.~player();
+*/
 }
 
 Board::Board(){
@@ -157,12 +161,33 @@ void Board::takeTurn() {
             	}
             	int a,b;
             	bool c{false};
-            	while (c==false){
-            	cin >> a>>b;
-            	if (a < 0 || a >7) {
-            	      cout << "Invalid range, please pick a position between 0 and 7 inclusive." << endl;
-            	      c=false;
-            	}
+            	string temp,temp2;
+
+            	while(c==false){
+            					while (true) {
+            						cin>>temp>>temp2;
+
+            								try {
+            									unsigned int x = std::stoi(temp);
+            									unsigned int y = std::stoi(temp2);
+            									if (x<0 || x>7 || y<0 || y>7) {
+
+            				throw std::out_of_range("Error: option must be between 0 and 7");
+
+            									            			}
+
+            									break;
+            													        }
+            									catch (const std::invalid_argument& e) {
+            		std::cout << "Error: Invalid input. Please enter a number." << std::endl;
+            											        }
+            									catch (const std::out_of_range& e) {
+            											cout << e.what() << std::endl;
+            													        }
+            													    }
+            								      a=stoi(temp);
+            								      b=stoi(temp2);
+
             	if (board[a][b]->canPlay()==false){
             	      cout<<"Unplayable Position, try again: "<<endl;
             	      c=false;
@@ -178,8 +203,8 @@ void Board::takeTurn() {
             		 board[a][b]=qBoard;
             		 doFlip(a,b);
             		 c=true;
-            }}
-
+            }
+            	}
 }
 
 
@@ -356,7 +381,28 @@ void Board::play(){
 draw();
 		cout<<getCurrentTurn().getName()<<":\nThere are playable moves. Choose Option:"<<endl;
 				cout<<"1. Make Move\n2. Save Game\n3. Concede the Game"<<endl;
-				cin>>option;
+
+				string temp;
+				while (true) {
+					cin>>temp;
+
+							try {
+								unsigned int x = std::stoi(temp);
+								if (x>=4 || x<=0) {
+
+			throw std::out_of_range("Error: option must be between 1 and 3");
+												            }
+												            break;
+												        }
+								catch (const std::invalid_argument& e) {
+					std::cout << "Error: Invalid input. Please enter a number." << std::endl;
+										        }
+								catch (const std::out_of_range& e) {
+										cout << e.what() << std::endl;
+												        }
+												    }
+							      option=stoi(temp);
+
 				if (option==1){
 			takeTurn();
 					if(getCurrentTurn().getName()==playerW.getName()){
@@ -395,7 +441,28 @@ draw();
 				draw();
 				cout<<getCurrentTurn().getName()<<": No playable moves. Choose Option:"<<endl;
 				cout<<"1. Forfeit Turn\n2. Save Game\n3. Concede the Game"<<endl;
-				cin>>option;
+
+				string temp;
+								while (true) {
+									cin>>temp;
+
+											try {
+												unsigned int x = std::stoi(temp);
+												if (x>=4 || x<=0) {
+
+							throw std::out_of_range("Error: option must be between 1 and 3");
+																            }
+																            break;
+																        }
+												catch (const std::invalid_argument& e) {
+			std::cout << "Error: Invalid input. Please enter a number." << std::endl;
+														        }
+												catch (const std::out_of_range& e) {
+														cout << e.what() << std::endl;
+																        }
+																    }
+											      option=stoi(temp);
+
 				if (option==1){
 					if(getCurrentTurn().getName()==playerW.getName()){
 						setCurrentTurn(&playerB);
